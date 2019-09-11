@@ -1,0 +1,9 @@
+.active-variable { color: #28a745; }
+.no-variable { color: #dc3545; }
+#var_create { border-top: 1px solid #dee2e6!important; }
+.highlight { background: #ffc107; }
+#tinymce p {
+    padding: 0;
+    margin: 2px 0;
+}
+.signature-block { background: rgba(0,0,0,0.1); }
