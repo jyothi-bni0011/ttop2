@@ -219,6 +219,29 @@
 
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="control-label col-md-5">SAP Code</label>
+                            <div class="col-md-7">
+
+                                <?php
+                                $options_sap[''] = 'All';
+                                foreach ((array) $projects as $proj) {
+                                    $options_sap[$proj->project_id] = $proj->project_id;
+                                }
+
+                                $css = array(
+                                    'id' => 'sap_code',
+                                    'class' => 'form-control input-height',
+                                );
+
+                                echo form_dropdown('sap_code', $options_sap, $sap_code, $css);
+                                ?>
+
+                            </div>
+
+                        </div>
+                    </div>
 
                     <div class="col-md-4">
                         <div class="form-group row">
@@ -270,6 +293,7 @@
 
                         </div>
                     </div>
+                   
 
                 </div>
 

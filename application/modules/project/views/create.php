@@ -221,7 +221,6 @@
 
 		                <div class="form-group row" id="costcenterblock">
 		                  <label class="control-label col-md-3">Cost Center Name <span class="required"> * </span> </label>
-		                  <?php if( (int)$this->session->userdata('role_id') == 1 ) : ?>
 	                  		<div class="col-md-5">
 								<?php 
 									$options_ccn['']  = 'Select Cost Center';
@@ -242,28 +241,7 @@
 									echo form_dropdown('cost_center', $options_ccn, '', $css);
 								?>
                     	  	</div>	
-	                  	  <?php else : ?>
-			                  <div class="col-md-5">
-			                    	<?php 
-										$options_ccn['']  = 'Select Cost Center';
-										foreach($cost_centers as $cost_center)  {
-											$options_ccn[$cost_center->{CC_ID}]  = $cost_center->{CC_NAME};
-										}
-										
-										$css = array(
-										        'id'       => 'cost_center',
-										        'class'    => 'form-control input-height',
-										        
-										);
-
-										if ( ! empty( $userdata->cost_center_id ) ) 
-										{
-											$css['disabled'] = 'disabled';	
-										}
-										echo form_dropdown('cost_center', $options_ccn, $userdata->cost_center_id, $css);
-									?>
-			                  </div>
-		              	  <?php endif; ?>
+	                  	
 		              	</div>
 
 		              	<div class="form-group row">

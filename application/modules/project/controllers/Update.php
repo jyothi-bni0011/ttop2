@@ -46,7 +46,7 @@ class Update extends MY_Controller {
 						PROJECT_END_DATE => $this->input->post('end_date'),
 						STATUS => $this->input->post('status'),
 						'project_owner' => $this->input->post('owner'),
-						//'cost_center_id' => $this->input->post('cost_center'),
+						'cost_center_id' => $this->input->post('cost_center'),
 						UPDATED_ON => date('Y-m-d H:i:s', now())
 					);
 					

@@ -114,11 +114,11 @@
                       {
                         if ( !empty($subtasks1->total_hours) ) 
                         {
-                          echo $subtasks1->total_hours.' Hours'.'<br>';
+                          echo $subtasks1->total_hours.'<br>';
                         }
                         else
                         {
-                          echo "0 Hours".'<br>'; 
+                          echo "0".'<br>'; 
                         }
                       }
 

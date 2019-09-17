@@ -19,7 +19,7 @@ class Emp_report extends MY_Controller {
 
 		$data['title'] = "Employee Hours Report";
 
-		$role = $hours_type = $period_closed_hours = $project = $emp_id = $subtask = $subtask_array = '';
+		$role = $hours_type = $period_closed_hours = $project = $emp_id = $subtask = $subtask_array = $sap_code = '';
 		$current_week = date('W');
         $current_year = date('Y');
         $to_date = date("Y-m-d", strtotime("{$current_year}-W{$current_week}-7"));
@@ -42,6 +42,7 @@ class Emp_report extends MY_Controller {
 			$from_date = $this->input->post('from_date');
 			$to_date = $this->input->post('to_date');
 			$project = $this->input->post('project_id');
+			$sap_code = $this->input->post('sap_code');
 			$emp_id = $this->input->post('employee_id');
 			$subtask = $this->input->post('subtask_id');
 			$role_array = (!empty($role)) ? array($role) : array(3,4);
@@ -79,7 +80,7 @@ class Emp_report extends MY_Controller {
 		//$get_period_close_dates = $this->get_period_close_dates($region);
 
 
-		$data['reportdata'] = $this->Emp_report_model->emp_report_data( $user_id, $from_date, $to_date, $site, $region, $role, $status, $period_closed_hours, $project, $subtask, $emp_id, $hours_type );
+		$data['reportdata'] = $this->Emp_report_model->emp_report_data( $user_id, $from_date, $to_date, $site, $region, $role, $status, $period_closed_hours, $project, $subtask, $emp_id, $hours_type , $sap_code );
 		//echo "<pre>"; print_r($data['reportdata']); exit;
 
 		if(!empty($project)){
@@ -95,6 +96,7 @@ class Emp_report extends MY_Controller {
 		$data['projects'] = $this->project_model->get_projects($region, $site, 'global');
 		$data['emp_id'] = $emp_id;
 		$data['project'] = $project;
+		$data['sap_code'] = $sap_code;
 		$data['subtask'] = $subtask;
 		//$data['site_hour'] = $site_week_hours;
 		$data['subtask_array'] = $subtask_array;
@@ -207,7 +209,7 @@ class Emp_report extends MY_Controller {
 	}
 	public function hours_to_sap_report(){
 		$data['title'] = 'Hours to SAP Report';
-		$role = $hours_type = $period_closed_hours = $project = $emp_id = $subtask = $subtask_array = '';
+		$role = $hours_type = $period_closed_hours = $project = $emp_id = $subtask = $subtask_array = $sap_code = '';
 		$current_week = date('W');
         $current_year = date('Y');
         $to_date = date("Y-m-d", strtotime("{$current_year}-W{$current_week}-7"));
@@ -232,6 +234,7 @@ class Emp_report extends MY_Controller {
 			$to_date = $this->input->post('to_date');
 			$role_array = (!empty($role)) ? array($role) : array(3,4);
 			$project = $this->input->post('project_id');
+			$sap_code = $this->input->post('sap_code');
 			$emp_id = $this->input->post('employee_id');
 			$subtask = $this->input->post('subtask_id');
 		}
@@ -269,7 +272,7 @@ class Emp_report extends MY_Controller {
 		}
 		
 		$final_data = '';
-		$hours_report_data = $this->Emp_report_model->hours_to_sap_report_data($user_id, $from_date, $to_date, $site, $region, $role, $status, $period_closed_hours, $project, $subtask, $emp_id);
+		$hours_report_data = $this->Emp_report_model->hours_to_sap_report_data($user_id, $from_date, $to_date, $site, $region, $role, $status, $period_closed_hours, $project, $subtask, $emp_id, $sap_code);
 		//echo "<pre>"; print_r($_SESSION); exit;
 		foreach($hours_report_data as $report_data){
 			
@@ -294,6 +297,7 @@ class Emp_report extends MY_Controller {
 		if(!empty($project)){
 			$subtask_array = $this->Emp_report_model->getRecordWithcondition(SUBTASK, array(SUB_PROJECT_ID=>$project, STATUS=>1));
 		}
+               
 
 		$data['hours_report_data'] = $hours_report_data;
 		$data['site'] = $site;
@@ -305,6 +309,7 @@ class Emp_report extends MY_Controller {
 		$data['projects'] = $this->project_model->get_projects($region, $site, 'global');
 		$data['emp_id'] = $emp_id;
 		$data['project'] = $project;
+		$data['sap_code'] = $sap_code;
 		$data['subtask'] = $subtask;
 		$data['subtask_array'] = $subtask_array;
 		$array_user = array();

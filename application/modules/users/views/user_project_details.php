@@ -146,9 +146,9 @@
 												<td><?php echo $engineer_data->cost_center_name;?></td>
 												
 									<?php if(!empty($engineer_data->projectdata->total_hours)) { ?>
-								  <td><?php echo round($engineer_data->projectdata->total_hours,2);?> Hours</td>
+								  <td><?php echo round($engineer_data->projectdata->total_hours,2);?> </td>
 												<?php } else { ?>
-												 <td>0 Hours</td>
+												 <td>0 </td>
 												
 												
 												<?php } ?>

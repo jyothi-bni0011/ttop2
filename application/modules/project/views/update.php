@@ -237,7 +237,7 @@
 									$css = array(
 									        'id'       => 'cost_center',
 									        'class'    => 'form-control input-height',
-									        'disabled' => true
+//									        'disabled' => true
 									);
 
 									

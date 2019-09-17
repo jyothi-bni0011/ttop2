@@ -107,7 +107,7 @@
                                                         { ?>
                                                         
                                                             <li>
-                                                            <?php echo $subtask->estimatedhours[$k]." Hours "."<br/>";?>
+                                                            <?php echo $subtask->estimatedhours[$k]."<br/>";?>
                                                             </li>
                                                         <?php } ?></ul>
                                                     </td>

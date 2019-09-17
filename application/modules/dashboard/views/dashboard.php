@@ -410,14 +410,14 @@
 	                      <td><?php echo $projects_data->cost_center_code;   ?></td>
 	                      <td><?php echo $projects_data->cost_center_name;   ?></td>
 	                      <?php if(!empty($projects_data->estimated_hours))     {?>
-	                      <td><?php echo $projects_data->estimated_hours;   ?> Hours</td>
+	                      <td><?php echo $projects_data->estimated_hours;   ?></td>
 	                      <?php } else { ?>
-	                      <td>0 Hours</td>
+	                      <td>0 </td>
 	                      <?php } ?>
 	                      <?php if(isset($projects_data->total_hours)) {?>
-	                      <td><?php echo round($projects_data->total_hours,2);   ?> Hours</td>
+	                      <td><?php echo round($projects_data->total_hours,2);   ?> </td>
 	                      <?php } else { ?>
-	                      <td>0 Hours</td>
+	                      <td>0 </td>
 	                      <?php } ?>
 	                    </tr>
 	                    <?php $i++; } } }?>

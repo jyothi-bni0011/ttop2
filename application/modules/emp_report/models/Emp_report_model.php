@@ -4,12 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Emp_report_model extends MY_Model {
 
 
-	public function emp_report_data( $user_id, $from_date = '', $to_date = '', $site_id = '', $region = '', $role = '', $status = '', $period_closed_hours = '', $project = '', $subtask = '', $employee = '', $hours_type = '' )
+	public function emp_report_data( $user_id, $from_date = '', $to_date = '', $site_id = '', $region = '', $role = '', $status = '', $period_closed_hours = '', $project = '', $subtask = '', $employee = '', $hours_type = '' , $sap_code= '')
 	{
 		
 		$this->db->select('tc.*, SUM(ts.hours) as total_hours, s.site_name, s.workhours_per_week, CONCAT(u.first_name, " ", u.last_name) as name, CONCAT(u1.first_name, " ", u1.last_name) as sv_name, u.user_id as emp_id, u1.user_id as sv_id, u.email_id as emp_email, u1.email_id as sv_email, GROUP_CONCAT(distinct(r.role_id)) as roles');
 		$this->db->from('timecard as tc');
 		$this->db->join('timesheet as ts', 'tc.timecard_id = ts.timecard_id');
+		$this->db->join('projects as p', 'p.id = ts.project_id','left');
 		$this->db->join('users as u', 'tc.employee_id = u.user_id');
 		$this->db->join('users as u1', 'tc.supervisor_id = u1.user_id', 'left');
 		$this->db->join('users_role_mapping as r', 'u.user_id = r.user_id');
@@ -43,6 +44,9 @@ class Emp_report_model extends MY_Model {
 
 		if(!empty($project)){
 			$this->db->where('ts.project_id', $project);	
+		}
+                if(!empty($sap_code)){
+			$this->db->where('p.project_id', $sap_code);	
 		}
 
 		if(!empty($subtask)){
@@ -83,7 +87,7 @@ class Emp_report_model extends MY_Model {
 
 	}
 
-	public function hours_to_sap_report_data( $user_id, $from_date = '', $to_date = '', $site_id = '', $region = '', $role = '', $status = '', $period_hours = '', $project = '', $subtask = '', $employee = '' ){
+	public function hours_to_sap_report_data( $user_id, $from_date = '', $to_date = '', $site_id = '', $region = '', $role = '', $status = '', $period_hours = '', $project = '', $subtask = '', $employee = '' , $sap_code=''){
 
 		$this->db->select('u.username, SUM(ts.hours) as total_hours,tc.`status`,  tc.employee_id, ts.project_id, p.project_name, s.site_name, s.workhours_per_week, c.cost_center_code, c.cost_center_name, s.workhours_per_week, GROUP_CONCAT(m.role_id) as roles');
 		//$this->db->select('u.username, SUM(ts.hours) as total_hours,tc.`status`,  tc.employee_id, ts.project_id, p.project_name, s.site_name, s.workhours_per_week, c.cost_center_code, c.cost_center_name, s.workhours_per_week, GROUP_CONCAT(m.role_id) as roles, GROUP_CONCAT(ts.working_date ORDER BY ts.working_date ASC) AS group_dates, GROUP_CONCAT((ts.hours) ORDER BY ts.working_date ASC) AS group_hours');
@@ -132,6 +136,9 @@ class Emp_report_model extends MY_Model {
 
 		if(!empty($project)){
 			$this->db->where('ts.project_id', $project);	
+		}
+                if(!empty($sap_code)){
+			$this->db->where('p.project_id', $sap_code);	
 		}
 
 		if(!empty($subtask)){
