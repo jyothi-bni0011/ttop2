@@ -546,10 +546,10 @@
                 tbl_content += '<td><select name="selectSubtask['+tr_id+']" id="selectSubtask_'+tr_id+'" class="form-control" onchange="check_duplicate()"><option value="">Select</option></td>';
                 <?php 
                 for($i=0; $i<count($days); $i++){?>
-                    tbl_content += '<td style="text-align: center;"><input value="0" class="Hour_text_'+tr_id+' col_'+<?php echo $i;?>+' hour_text_class" type="text" name="hour_'+<?php echo $i;?>+'['+tr_id+']" id="hour_'+tr_id+'_'+<?php echo $i;?>+'" maxlength="25" size="50" style="width:50%; text-align: center;" onblur="callTotal(this.value, '+tr_id+')" onkeypress="return isNumber(this,event)" onchange="return isGreater($(this).attr(\'id\'))" ></td>';
+                    tbl_content += '<td style="text-align: center;"><input value="0" class="Hour_text_'+tr_id+' col_'+<?php echo $i;?>+' hour_text_class" type="text" name="hour_'+<?php echo $i;?>+'['+tr_id+']" id="hour_'+tr_id+'_'+<?php echo $i;?>+'" maxlength="25" size="50" style="width:100%; text-align: center;" onblur="callTotal(this.value, '+tr_id+')" onkeypress="return isNumber(this,event)" onchange="return isGreater($(this).attr(\'id\'))" ></td>';
                 <?php } ?>
                     
-                tbl_content += '<td style="text-align: center;"><input type="text" value="0" class="total_text_'+tr_id+'" name="hour_total['+tr_id+']" id="hour_total'+tr_id+'" size=50 style="width:50%; text-align: center;" disabled=1></td><td class="rm_btn_td"><button class="btn btn-danger rm_btn" id="rm_btn_id_'+tr_id+'" onclick="removeRow('+tr_id+'); return false;">-</button></td></tr>';
+                tbl_content += '<td style="text-align: center;"><input type="text" value="0" class="total_text_'+tr_id+'" name="hour_total['+tr_id+']" id="hour_total'+tr_id+'" size=50 style="width:100%; text-align: center;" disabled=1></td><td class="rm_btn_td"><button class="btn btn-danger rm_btn" id="rm_btn_id_'+tr_id+'" onclick="removeRow('+tr_id+'); return false;">-</button></td></tr>';
                 $('#tblTimegrid tr:last').after(tbl_content);
                 $('#addrowcount').val(parseInt(tr_id) + 1); 
             }
@@ -561,6 +561,10 @@
                     //$('#tblTimegrid tr:last').remove();
                     $('#row_'+row_id).remove();
                 }
+                var cur_day = '<?php echo date('l');?>';
+                var exist_holiday = '<?php echo $holiday_flag;?>';
+
+                console.log(exist_holiday);
                 //$('.rm_btn_td:last').html('<button class="btn btn-danger rm_btn" onclick="removeRow(); return false;">-</button>');
             }
 

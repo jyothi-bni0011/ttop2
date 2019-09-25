@@ -198,12 +198,12 @@ class Users extends MY_Controller {
 
 			$supervisor = $this->session->userdata('user_id');
 //			$log_desc = ucwords($this->session->userdata('username')).' Assigned to you('.$result1->username.')';
-			$log_desc = ucwords($result1->username).' Assigned To '.$this->session->userdata('username').')';
+			$log_desc = ucwords($result1->username).' Assigned To '.$this->session->userdata('username');
 		}else{
 
 			$supervisor = 0;
 //			$log_desc = ucwords($this->session->userdata('username')).' Unassigned to you('.$result1->username.')';
-			$log_desc = ucwords($result1->username).' Unassigned By('.$this->session->userdata('username').')';
+			$log_desc = ucwords($result1->username).' Unassigned By '.$this->session->userdata('username');
 		}
 
 		$data=array(	
@@ -261,7 +261,7 @@ class Users extends MY_Controller {
 					//'notification_from' => $this->session->userdata('user_id'),
 					'notification_from' => $this->session->userdata('user_id'),
 					'notification_to' => $result1->supervisor_id,
-					'notification' => ucwords($this->session->userdata('username')).' '. $action.' to '.$result1->username,
+					'notification' => $result1->username.' '. $action.' by '.ucwords($this->session->userdata('username')),
 					'request' => 'AssignUser',
 					'request_id' => '',
 					'status' => 0,

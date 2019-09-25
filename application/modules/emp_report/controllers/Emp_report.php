@@ -192,7 +192,7 @@ class Emp_report extends MY_Controller {
 				
 		if($mail_to=='engineer')
 		{
-			$message = 'Dear ' .urldecode($engineerfullname). ' , <br /> Kindly update and submit your time sheet for the week : ' .$weeknumber. ' as soon as possible. <br /><br />Thank you.<br /><br />Regards,<br/>Finance Team';
+			$message = 'Dear ' .urldecode($engineerfullname). ', <br /><br /> Kindly update and submit your time sheet for the week# ' .$weeknumber. ' as soon as possible. <br /><br />Thank you.<br /><br />Regards,<br/>Finance Team';
 			$to=$engineeremailaddress;
 		}
 		
