@@ -20,6 +20,7 @@
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" id="login_form" method="post" action="">
 					<span class="login100-form-logo"> <img alt="" src="<?php echo base_url('assets/img/logo1.png') ;?>"></span> 
+					<span class="login-name p-t-20"> Time Track Online Portal </span>
 					<span class="login100-form-title p-b-20 p-t-27"> Login </span> <?php //echo $this->session->flashdata('msg'); 
 						$this->session->set_flashdata('msg',$message);
 					 ?>

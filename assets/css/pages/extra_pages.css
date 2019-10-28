@@ -203,14 +203,20 @@ border: solid 1px #e2e2e2;
   height: 120px;
   margin: 0 auto;
 }
-
+.login-name {
+  font-size: 20px;
+  color: #000;
+  line-height: 1.2;
+  text-align: center;
+  display: block;
+  font-weight: bold;
+}
 .login100-form-title {
   font-size: 20px;
   color: #000;
   line-height: 1.2;
   text-align: center;
   text-transform: uppercase;
-
   display: block;
 }
 .login100-form-logo img{
@@ -529,6 +535,9 @@ border: none;
 }
 .p-t-50 {
     padding-top: 50px;
+}
+.p-t-20 {
+  padding-top: 20px;
 }
 .form-404{
    text-align: center;
