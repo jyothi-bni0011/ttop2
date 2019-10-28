@@ -77,7 +77,7 @@ class Timesheet_model extends MY_Model {
 
 			$query = $this->db->get();*/
 
-			$this->db->select('p.project_name, st.subtask_name, ts.*, sum(ts.hours) as tot_hr, (SELECT end_date FROM assign_project WHERE ts.project_id = assign_project.project_id AND t.employee_id = assign_project.user_id) as end_date, (SELECT start_date FROM assign_project WHERE ts.project_id = assign_project.project_id AND t.employee_id = assign_project.user_id) as start_date, u.username');
+			$this->db->select('p.project_name, st.subtask_name, ts.*, ts.hours as tot_hr, (SELECT end_date FROM assign_project WHERE ts.project_id = assign_project.project_id AND t.employee_id = assign_project.user_id) as end_date, (SELECT start_date FROM assign_project WHERE ts.project_id = assign_project.project_id AND t.employee_id = assign_project.user_id) as start_date, u.username');
 			$this->db->from('timesheet as ts');
 			$this->db->join('timecard as t', 'ts.timecard_id=t.timecard_id');
 			$this->db->join('users as u', 'u.user_id=t.employee_id');
