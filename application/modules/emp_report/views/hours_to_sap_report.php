@@ -345,7 +345,8 @@
                             $i = 1;
                             foreach ((array) $hours_report_data as $data) {
                                 //$week = date('W', strtotime($data->start_date));
-                                $role_array = explode(",", $data->roles);
+                                // $role_array = explode(",", $data->roles);
+                                $role_array = [];
                                 if (in_array('3', $role_array))
                                     $emp_role = 'Supervisor';
                                 else if (in_array('4', $role_array))
@@ -360,7 +361,7 @@
                                     <td><?php echo $data->project_name; ?></td>
                                     <td><?php echo $data->normalized_hours; ?></td>
                                     <td><?php echo round($data->total_hours, 2); ?></td>
-                                    <td><?php echo $data->username . "/" . $emp_role; ?></td>
+                                    <td><?php echo $data->username; ?></td>
                                     <!--<td><a href="javascript::" onclick="open_modal('<?php echo $i ?>', '<?php echo $data->username . " / " . $emp_role ?>', '<?php echo $data->project_name; ?>', '<?php echo $data->group_dates; ?>', '<?php echo $data->group_hours; ?>')" class="btn btn-success btn-tbl-edit btn-xs" data-toggle="tooltip" title="View Dates"><i class="fa fa-calendar"></i></a></td>-->
                                 </tr>
                                 <?php $i++;

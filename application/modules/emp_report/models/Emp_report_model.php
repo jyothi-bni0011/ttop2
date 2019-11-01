@@ -7,14 +7,14 @@ class Emp_report_model extends MY_Model {
 	public function emp_report_data( $user_id, $from_date = '', $to_date = '', $site_id = '', $region = '', $role = '', $status = '', $period_closed_hours = '', $project = '', $subtask = '', $employee = '', $hours_type = '' , $sap_code= '')
 	{
 		
-		$this->db->select('tc.*, SUM(ts.hours) as total_hours, s.site_name, s.workhours_per_week, CONCAT(u.first_name, " ", u.last_name) as name, CONCAT(u1.first_name, " ", u1.last_name) as sv_name, u.user_id as emp_id, u1.user_id as sv_id, u.email_id as emp_email, u1.email_id as sv_email, GROUP_CONCAT(distinct(r.role_id)) as roles');
+		$this->db->select('tc.*, SUM(ts.hours) as total_hours, s.site_name, s.workhours_per_week, CONCAT(u.first_name, " ", u.last_name) as name, CONCAT(u1.first_name, " ", u1.last_name) as sv_name, u.user_id as emp_id, u1.user_id as sv_id, u.email_id as emp_email, u1.email_id as sv_email'); //GROUP_CONCAT(distinct(r.role_id)) as roles
 		$this->db->from('timecard as tc');
 		$this->db->join('timesheet as ts', 'tc.timecard_id = ts.timecard_id');
 		$this->db->join('projects as p', 'p.id = ts.project_id','left');
 		$this->db->join('users as u', 'tc.employee_id = u.user_id');
 		$this->db->join('users as u1', 'tc.supervisor_id = u1.user_id', 'left');
-		$this->db->join('users_role_mapping as r', 'u.user_id = r.user_id');
-		$this->db->join('site as s', 'r.site_id = s.site_id', 'left');
+		// $this->db->join('users_role_mapping as r', 'u.user_id = r.user_id');
+		$this->db->join('site as s', 'u.site_id = s.site_id', 'left');
 
 		//$where = 'tc.status = 3 OR tc.status = 2';
 		//$this->db->where($where);
@@ -26,17 +26,17 @@ class Emp_report_model extends MY_Model {
 			$this->db->where('ts.working_date <=', $to_date);
 		}
 
-		if(!empty($region)){
-			$this->db->where('r.region_id', $region);
-		}
+		// if(!empty($region)){
+		// 	$this->db->where('u.region_id', $region);
+		// }
 
 		if(!empty($site_id)){
-			$this->db->where('r.site_id', $site_id);
+			$this->db->where('u.site_id', $site_id);
 		}
 
-		if(!empty($role)){
-			$this->db->where('r.role_id', $role);	
-		}
+		// if(!empty($role)){
+		// 	$this->db->where('r.role_id', $role);	
+		// }
 
 		if(!empty($status)){
 			$this->db->where_in('tc.status', $status);	
@@ -74,7 +74,7 @@ class Emp_report_model extends MY_Model {
 		
 
 		$query = $this->db->get();
-		//echo $this->db->last_query(); exit;
+		// echo $this->db->last_query(); exit;
 		return $query->result();
 	}	
 
@@ -89,14 +89,14 @@ class Emp_report_model extends MY_Model {
 
 	public function hours_to_sap_report_data( $user_id, $from_date = '', $to_date = '', $site_id = '', $region = '', $role = '', $status = '', $period_hours = '', $project = '', $subtask = '', $employee = '' , $sap_code=''){
 
-		$this->db->select('u.username, SUM(ts.hours) as total_hours,tc.`status`,  tc.employee_id, ts.project_id, p.project_name, s.site_name, s.workhours_per_week, c.cost_center_code, c.cost_center_name, s.workhours_per_week, GROUP_CONCAT(m.role_id) as roles');
+		$this->db->select('u.username, SUM(ts.hours) as total_hours,tc.`status`,  tc.employee_id, ts.project_id, p.project_name, s.site_name, s.workhours_per_week, c.cost_center_code, c.cost_center_name, s.workhours_per_week'); //, GROUP_CONCAT(m.role_id) as roles
 		//$this->db->select('u.username, SUM(ts.hours) as total_hours,tc.`status`,  tc.employee_id, ts.project_id, p.project_name, s.site_name, s.workhours_per_week, c.cost_center_code, c.cost_center_name, s.workhours_per_week, GROUP_CONCAT(m.role_id) as roles, GROUP_CONCAT(ts.working_date ORDER BY ts.working_date ASC) AS group_dates, GROUP_CONCAT((ts.hours) ORDER BY ts.working_date ASC) AS group_hours');
 		$this->db->from(USER.' as u');
-		$this->db->join(USER_ROLE_MAPPING.' as m', 'u.user_id=m.user_id');
-		$this->db->join('timecard as tc', 'm.user_id=tc.employee_id', 'left');
+		// $this->db->join(USER_ROLE_MAPPING.' as m', 'u.user_id=m.user_id');
+		$this->db->join('timecard as tc', 'u.user_id=tc.employee_id', 'left');
 		$this->db->join('timesheet as ts', 'tc.timecard_id=ts.timecard_id');
 		$this->db->join(PROJECTS.' as p', 'ts.project_id=p.id');
-		$this->db->join(SITE.' as s', 'm.site_id=s.site_id', 'left');
+		$this->db->join(SITE.' as s', 'u.site_id=s.site_id', 'left');
 		$this->db->join(COST_CENTER.' as c', 'p.cost_center_id=c.cc_id', 'left');
 
 		//$where = 'tc.status = 3 OR tc.status = 2';
@@ -110,19 +110,19 @@ class Emp_report_model extends MY_Model {
 			$this->db->where('ts.working_date <=', $to_date);
 		}
 
-		if(!empty($region)){
-			$this->db->where('m.region_id', $region);
-		}
+		// if(!empty($region)){
+		// 	$this->db->where('m.region_id', $region);
+		// }
 
 		if(!empty($site_id)){
-			$this->db->where('m.site_id', $site_id);
+			$this->db->where('u.site_id', $site_id);
 		}
 
-		if(!empty($role)){
-			$this->db->where('m.role_id', $role);	
-		}else{
-			$this->db->where_in('m.role_id', array(3,4));
-		}
+		// if(!empty($role)){
+		// 	$this->db->where('m.role_id', $role);	
+		// }else{
+		// 	$this->db->where_in('m.role_id', array(3,4));
+		// }
 
 		if(!empty($status)){
 			$this->db->where_in('tc.status', $status);	
@@ -154,10 +154,10 @@ class Emp_report_model extends MY_Model {
 			$this->db->where($where);		
 		}
 
-		$this->db->group_by('m.user_id, ts.project_id');
+		$this->db->group_by('u.user_id, ts.project_id');
 		$this->db->order_by('u.user_id');
 		$query = $this->db->get();
-		//echo $this->db->last_query(); exit;
+		// echo $this->db->last_query(); exit;
 		return $query->result();
 
 	}

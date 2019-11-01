@@ -81,7 +81,7 @@ class Emp_report extends MY_Controller {
 
 
 		$data['reportdata'] = $this->Emp_report_model->emp_report_data( $user_id, $from_date, $to_date, $site, $region, $role, $status, $period_closed_hours, $project, $subtask, $emp_id, $hours_type , $sap_code );
-		//echo "<pre>"; print_r($data['reportdata']); exit;
+		// echo "<pre>"; print_r($data['reportdata']); exit;
 
 		if(!empty($project)){
 			$subtask_array = $this->Emp_report_model->getRecordWithcondition(SUBTASK, array(SUB_PROJECT_ID=>$project, STATUS=>1));
@@ -273,7 +273,7 @@ class Emp_report extends MY_Controller {
 		
 		$final_data = '';
 		$hours_report_data = $this->Emp_report_model->hours_to_sap_report_data($user_id, $from_date, $to_date, $site, $region, $role, $status, $period_closed_hours, $project, $subtask, $emp_id, $sap_code);
-		//echo "<pre>"; print_r($_SESSION); exit;
+		// echo "<pre>"; print_r($hours_report_data); exit;
 		foreach($hours_report_data as $report_data){
 			
 			//Not specific to project_id

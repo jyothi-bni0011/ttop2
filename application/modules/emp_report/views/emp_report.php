@@ -329,7 +329,7 @@
                                 <th> S.NO </th>
                                 <th> Week # </th>
                                 <th> Site </th>
-                                <th> Name / Role </th>
+                                <th> Name </th>
                                 <th> Resource's Manager </th>
                                 <th> Worked Hrs </th>
                                 <?php if ($hours_type == 'missing') { ?>
@@ -343,7 +343,8 @@
                             $i = 1;
                             foreach ((array) $reportdata as $data) {
                                 $week = date('W', strtotime($data->start_date));
-                                $role_array = explode(",", $data->roles);
+                                // $role_array = explode(",", $data->roles);
+                                $role_array=[];
                                 if (in_array('3', $role_array))
                                     $emp_role = 'Supervisor';
                                 else if (in_array('4', $role_array))
@@ -358,7 +359,7 @@
                                         echo '<span title="Missing hours">' . $week . '</span>';
                                     } ?></td>
                                     <td><?php echo $data->site_name; ?></td>
-                                    <td><?php echo $data->name . ' / ' . $emp_role; ?></td>
+                                    <td><?php echo $data->name ; ?></td>
                                     <td><?php echo $data->sv_name; ?></td>
                                     <td><?php echo round($data->total_hours, 2); ?></td>
                                     <?php
